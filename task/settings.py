@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from decouple import task
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,7 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    # apps
     'course_student',
+    
+    # libs
+    'rest_framework',
+
 ]
 
 MIDDLEWARE = [
@@ -77,11 +84,11 @@ WSGI_APPLICATION = 'task.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'test2',
-        'USER': 'ramazanimashovgmail.com',
-        'PASSWORD': '',
+        'NAME': task('DB_NAME'),
+        'USER': task('DB_USER'),
+        'PASSWORD': task('DB_PASS'),
         'HOST': 'localhost',
-        'PORT': '5432'
+        'PORT': 5432
     }
 }
 
